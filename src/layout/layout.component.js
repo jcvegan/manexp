@@ -1,16 +1,29 @@
-import { Container } from '@mui/material';
-import { useState } from 'react';
-import Header from '../fragmens/header.fragment';
+import { Box, Container, CssBaseline, Toolbar } from '@mui/material';
+import Header from '../fragments/header/header.fragment';
+import Sidebar from "../fragments/sidebar/sidebar.fragment";
+import LayoutContent from './layout.content';
 
-const Layout = ({ children }) => {
-
-    const [sidebarOpen, setSidebarOpen] = useState(true);
-
+    const Layout = ({children}) => {
     return (
-        <Container maxWidth="xl">
-            <Header appName="Exp" />
-            {children}
-        </Container>
+        <Box sx={{display:'flex'}}>
+            <CssBaseline />
+            <Header appName="ManExp" />
+            <Sidebar />
+            <Box component="main" sx={{
+                backgroundColor: (theme) =>  theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+                flexGrow: 1,
+                height: '100vh',
+                overflow: 'auto',
+            }}>
+                <Toolbar />
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                    <LayoutContent />
+                </Container>
+            </Box>
+            
+        </Box>
     )
 }
 
