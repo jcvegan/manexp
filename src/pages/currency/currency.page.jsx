@@ -10,10 +10,9 @@ const CurrencyPage = () => {
 
     useEffect(() => {
 
-        console.log('dispatch')
         dispatch(setTitle("Currency"));
 
-    }, []);
+    }, [dispatch]);
 
     return (
         <Grid container spacing={3}>
