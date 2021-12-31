@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, TextField } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 
@@ -17,9 +17,6 @@ const SignUp = () => {
             acceptTerms: false
         }
     })
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
 
     return (
         <form>
@@ -34,23 +31,70 @@ const SignUp = () => {
                                 }) => (
                                     <TextField  error={invalid}
                                                 fullWidth
+                                                helperText={error?.message}
                                                 placeholder="First Name"
                                                 value={value} 
                                                 onChange={onChange} />
-                                )} 
+                                )}
                                 rules={{
                                     required: {
-                                        message: 'Must specify name',
+                                        message: 'Required',
                                         value: true
                                     }
                                 }}
                                 />
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                    <TextField value={lastName} placeholder="Last Name" onChange={event => setLastName(event.target.value)} fullWidth />
+                    <Controller control={control}
+                                name="lastName"
+                                render={({
+                                    field: { onChange, onBlur, value, name, ref },
+                                    fieldState: { invalid, isTouched, isDirty, error },
+                                    formState,
+                                }) => (
+                                    <TextField  error={invalid}
+                                                fullWidth
+                                                helperText={error?.message}
+                                                placeholder="Last Name"
+                                                value={value} 
+                                                onChange={onChange} />
+                                )} 
+                                rules={{
+                                    required: {
+                                        message: 'Required',
+                                        value: true
+                                    }
+                                }}
+                                />
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                    <TextField value={email} placeholder="Email" onChange={event => setEmail(event.target.value)} fullWidth />
+                    <Controller control={control}
+                                name="email"
+                                render={({
+                                    field: { onChange, onBlur, value, name, ref },
+                                    fieldState: { invalid, isTouched, isDirty, error },
+                                    formState,
+                                }) => (
+                                    <TextField  error={invalid}
+                                                fullWidth
+                                                helperText={error?.message}
+                                                placeholder="E-mail"
+                                                type="email"
+                                                value={value} 
+                                                onChange={onChange} />
+                                )} 
+                                rules={{
+                                    required: {
+                                        message: 'Required',
+                                        value: true
+                                    },
+                                    pattern: {
+                                        message: 'Email not valid',
+                                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                                    }
+                                }}
+                                />
+                    
                 </Grid>
                 <Grid item></Grid>
                 <Grid item></Grid>
